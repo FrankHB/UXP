@@ -137,7 +137,10 @@ endif
 DEFAULT_GMAKE_FLAGS += topsrcdir='$(topsrcdir)'
 # topsrcdir can't be expanded here because msys path mangling likes to break
 # paths in that case.
-DEFAULT_GMAKE_FLAGS += BUILD='$(MOZ_BUILD_ROOT)/security/$$(subst $$(topsrcdir)/security/,,$$(CURDIR))'
+#DEFAULT_GMAKE_FLAGS += BUILD='$(MOZ_BUILD_ROOT)/security/$$(subst $$(topsrcdir)/security/,,$$(CURDIR))'
+# XXX: Using MSYS2 shell + MSYS2 make rather than mingw32-make, $(topsrcdir) should be mangled here.
+topsrcdir_ := $(shell cygpath -u $(topsrcdir))
+DEFAULT_GMAKE_FLAGS += BUILD='$(MOZ_BUILD_ROOT)/security/$$(subst $(topsrcdir_)/security/,,$$(CURDIR))'
 DEFAULT_GMAKE_FLAGS += BUILD_TREE='$$(BUILD)' OBJDIR='$$(BUILD)' DEPENDENCIES='$$(BUILD)/.deps' SINGLE_SHLIB_DIR='$$(BUILD)'
 DEFAULT_GMAKE_FLAGS += SOURCE_XP_DIR=$(ABS_DIST)
 ifndef MOZ_DEBUG

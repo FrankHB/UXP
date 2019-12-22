@@ -31,6 +31,10 @@ def main(argv):
     return config_status(config)
 
 
+def convert_path_(path):
+    out, err = subprocess.Popen('sh -c "echo -n $PATH"', stdout=subprocess.PIPE, shell=True, env=dict([], PATH=path.encode('utf-8'))).communicate()
+    return out
+
 def config_status(config):
     # Sanitize config data to feed config.status
     # Ideally, all the backend and frontend code would handle the booleans, but
@@ -48,6 +52,7 @@ def config_status(config):
         k: sanitized_bools(v) for k, v in config.iteritems()
         if k not in ('DEFINES', 'non_global_defines', 'TOPSRCDIR', 'TOPOBJDIR')
     }
+    sanitized_config['substs']['PATH'] = convert_path_(sanitized_config['substs']['PATH'])
     sanitized_config['defines'] = {
         k: sanitized_bools(v) for k, v in config['DEFINES'].iteritems()
     }
@@ -60,7 +65,8 @@ def config_status(config):
     # here, when we're able to skip configure tests/use cached results/not rely
     # on autoconf.
     print("Creating config.status", file=sys.stderr)
-    encoding = 'mbcs' if sys.platform == 'win32' else 'utf-8'
+    #encoding = 'mbcs' if sys.platform == 'win32' else 'utf-8'
+    encoding = 'utf-8'
     with codecs.open('config.status', 'w', encoding) as fh:
         fh.write(textwrap.dedent('''\
             #!%(python)s
