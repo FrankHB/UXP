@@ -51,7 +51,6 @@ UNIFIED_SOURCES += [
     'skia/src/core/SkComposeShader.cpp',
     'skia/src/core/SkConfig8888.cpp',
     'skia/src/core/SkConvolver.cpp',
-    'skia/src/core/SkCpu.cpp',
     'skia/src/core/SkCubicClipper.cpp',
     'skia/src/core/SkData.cpp',
     'skia/src/core/SkDataTable.cpp',
@@ -272,6 +271,7 @@ SOURCES += [
     'skia/src/core/SkColorSpace.cpp',
     'skia/src/core/SkColorSpace_ICC.cpp',
     'skia/src/core/SkColorSpaceXform.cpp',
+    'skia/src/core/SkCpu.cpp',
     'skia/src/core/SkMatrix.cpp',
     'skia/src/core/SkMatrix44.cpp',
     'skia/src/core/SkMiniRecorder.cpp',
@@ -302,6 +302,7 @@ SOURCES['skia/src/core/SkBlitter_ARGB32.cpp'].flags += skia_opt_flags
 SOURCES['skia/src/core/SkBlitter_PM4f.cpp'].flags += skia_opt_flags
 SOURCES['skia/src/core/SkBlitter_RGB16.cpp'].flags += skia_opt_flags
 SOURCES['skia/src/core/SkBlitter_Sprite.cpp'].flags += skia_opt_flags
+SOURCES['skia/src/core/SkCpu.cpp'].flags += skia_opt_flags
 SOURCES['skia/src/core/SkMatrix.cpp'].flags += skia_opt_flags
 SOURCES['skia/src/core/SkOpts.cpp'].flags += skia_opt_flags
 SOURCES['skia/src/core/SkSpriteBlitter4f.cpp'].flags += skia_opt_flags
@@ -708,6 +709,7 @@ if CONFIG['_MSC_VER']:
     SOURCES['skia/src/opts/SkOpts_sse42.cpp'].flags += ['-DSK_CPU_SSE_LEVEL=42']
     SOURCES['skia/src/opts/SkOpts_avx.cpp'].flags += ['-DSK_CPU_SSE_LEVEL=51']
 if CONFIG['INTEL_ARCHITECTURE'] and (CONFIG['GNU_CC'] or CONFIG['CLANG_CL']):
+    SOURCES['skia/src/core/SkCpu.cpp'].flags += ['-mxsave']
     SOURCES['skia/src/opts/SkBitmapFilter_opts_SSE2.cpp'].flags += CONFIG['SSE2_FLAGS']
     SOURCES['skia/src/opts/SkBitmapProcState_opts_SSE2.cpp'].flags += CONFIG['SSE2_FLAGS']
     SOURCES['skia/src/opts/SkBitmapProcState_opts_SSSE3.cpp'].flags += ['-mssse3']

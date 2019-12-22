@@ -785,7 +785,7 @@ if CONFIG['JS_HAS_CTYPES']:
 if CONFIG['GNU_CXX']:
     # Disable strict-aliasing for GCC, which is enabled by default
     # starting with version 7.1, see Mozilla bug 1363009.
-    CXXFLAGS += ['-Wno-shadow', '-Werror=format', '-fno-strict-aliasing']
+    CXXFLAGS += ['-Wno-shadow', '-Wno-error=format', '-fno-strict-aliasing']
 
 # Suppress warnings in third-party code.
 if CONFIG['CLANG_CXX'] or CONFIG['GNU_CXX']:

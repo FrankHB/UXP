@@ -1268,7 +1268,9 @@ MOZ_CXX11
 AC_LANG_C
 
 case "${OS_TARGET}" in
-Darwin)
+# XXX: See https://trac.torproject.org/projects/tor/attachment/ticket/23231.
+#   Note that update of 'mozalloc/gcc_throw.h' still does not work.
+WINNT|Darwin)
   ;;
 *)
   STL_FLAGS="-I${DIST}/stl_wrappers"

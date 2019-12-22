@@ -4,7 +4,7 @@ import os
 
 import locale
 from collections import defaultdict
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
+locale.setlocale(locale.LC_ALL, 'C')
 
 header = """
 #
@@ -98,6 +98,7 @@ if CONFIG['_MSC_VER']:
     SOURCES['skia/src/opts/SkOpts_sse42.cpp'].flags += ['-DSK_CPU_SSE_LEVEL=42']
     SOURCES['skia/src/opts/SkOpts_avx.cpp'].flags += ['-DSK_CPU_SSE_LEVEL=51']
 if CONFIG['INTEL_ARCHITECTURE'] and (CONFIG['GNU_CC'] or CONFIG['CLANG_CL']):
+    SOURCES['skia/src/core/SkCpu.cpp'].flags += ['-mxsave']
     SOURCES['skia/src/opts/SkBitmapFilter_opts_SSE2.cpp'].flags += CONFIG['SSE2_FLAGS']
     SOURCES['skia/src/opts/SkBitmapProcState_opts_SSE2.cpp'].flags += CONFIG['SSE2_FLAGS']
     SOURCES['skia/src/opts/SkBitmapProcState_opts_SSSE3.cpp'].flags += ['-mssse3']
@@ -165,8 +166,8 @@ def generate_platform_sources():
   sources = {}
 
   for plat in platforms:
-    if os.system("cd skia && GYP_GENERATORS=dump_mozbuild ./gyp_skia -D OS=%s -D host_os=linux gyp/skia_lib.gyp" % plat) != 0:
-      print 'Failed to generate sources for ' + plat
+    if os.system("env GYP_GENERATORS=dump_mozbuild ./gyp_mozbuild -D OS=%s -D host_os=linux gyp/skia_lib.gyp" % plat) != 0:
+      print('Failed to generate sources for ' + plat)
       continue
 
 
@@ -315,8 +316,8 @@ def generate_separated_sources(platform_sources):
 
       separated[key].add(value)
 
-  if os.system("cd skia && GYP_GENERATORS=dump_mozbuild ./gyp_skia -D OS=linux -D host_os=linux -R pdf gyp/pdf.gyp") != 0:
-    print 'Failed to generate sources for Skia PDF'
+  if os.system("env GYP_GENERATORS=dump_mozbuild ./gyp_mozbuild -D OS=linux -D host_os=linux -R pdf gyp/pdf.gyp") != 0:
+    print('Failed to generate sources for Skia PDF')
   else:
     f = open('skia/sources.json');
     separated['pdf'].add('skia/src/core/SkMD5.cpp');
@@ -490,7 +491,7 @@ def write_mozbuild(sources):
 
   f.close()
 
-  print 'Wrote ' + filename
+  print('Wrote ' + filename)
 
 def main():
   platform_sources = generate_platform_sources()

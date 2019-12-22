@@ -6,6 +6,7 @@
 
 #include "DocAccessibleWrap.h"
 
+#include "Accessible-inl.h"
 #include "Compatibility.h"
 #include "DocAccessibleChild.h"
 #include "nsWinUtils.h"

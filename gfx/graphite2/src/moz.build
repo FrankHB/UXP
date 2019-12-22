@@ -81,4 +81,5 @@ for var in ('GRAPHITE2_NFILEFACE', 'GRAPHITE2_NTRACING', 'GRAPHITE2_NSEGCACHE'):
 
 # provide a custom header that overrides malloc() and friends,
 # to ensure safe OOM handling
-DEFINES['GRAPHITE2_CUSTOM_HEADER'] = '"MozGrMalloc.h"'
+# FIXME: Clash with std::malloc, etc.
+#DEFINES['GRAPHITE2_CUSTOM_HEADER'] = '\"MozGrMalloc.h\"'
