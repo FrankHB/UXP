@@ -8,7 +8,7 @@
 #ifndef MOZILLA_A11Y_ProxyWrappers_h
 #define MOZILLA_A11Y_ProxyWrappers_h
 
-#include "HyperTextAccessible.h"
+#include "HyperTextAccessibleWrap.h"
 
 namespace mozilla {
 namespace a11y {

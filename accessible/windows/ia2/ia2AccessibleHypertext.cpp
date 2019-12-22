@@ -8,6 +8,7 @@
 #include "ia2AccessibleHypertext.h"
 
 #include "AccessibleHypertext_i.c"
+#include "ProxyWrappers.h"
 
 #include "HyperTextAccessibleWrap.h"
 #include "IUnknownImpl.h"
