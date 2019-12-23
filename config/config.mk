@@ -143,7 +143,8 @@ ifneq (,$(MOZ_DEBUG)$(MOZ_DEBUG_SYMBOLS))
       _DEBUG_ASFLAGS += -g cv8
     else
       ifneq ($(OS_ARCH),Darwin)
-        _DEBUG_ASFLAGS += -g dwarf2
+        # XXX: As https://hg.mozilla.org/try/rev/40c64c7fc24143385a1cfa9ca22e2fa874c49ed6.
+        _DEBUG_ASFLAGS += # -g dwarf2
       endif
     endif
   else
