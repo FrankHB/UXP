@@ -61,7 +61,7 @@ _DEBUGGER_INFO = {
 
 # Maps each OS platform to the preferred debugger programs found in _DEBUGGER_INFO.
 _DEBUGGER_PRIORITIES = {
-    'win': ['devenv.exe', 'wdexpress.exe'],
+    'win': ['devenv.exe', 'wdexpress.exe', 'gdb.exe'],
     'linux': ['gdb', 'cgdb', 'lldb'],
     'mac': ['lldb', 'gdb'],
     'android': ['gdb'],
@@ -153,7 +153,7 @@ def get_debugger_info(debugger, debuggerArgs=None, debuggerInteractive=False):
         print 'Error: Could not find debugger %s.' % debugger
         return None
 
-    debuggerName = os.path.basename(debuggerPath).lower()
+    debuggerName = os.path.splitext(os.path.basename(debuggerPath).lower())[0]
 
     def get_debugger_info(type, default):
         if debuggerName in _DEBUGGER_INFO and type in _DEBUGGER_INFO[debuggerName]:
