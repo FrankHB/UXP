@@ -324,7 +324,7 @@ case "$target" in
         fi
         # Check windres version
         AC_MSG_CHECKING([for windres version >= $WINDRES_VERSION])
-        _WINDRES_VERSION=`${WINDRES} --version 2>&1 | grep -i windres 2>/dev/null | $AWK '{ print $3 }'`
+        _WINDRES_VERSION=`${WINDRES} --version 2>&1 | grep -i windres 2>/dev/null | $AWK '{ print $NF }'`
         AC_MSG_RESULT([$_WINDRES_VERSION])
         _WINDRES_MAJOR_VERSION=`echo $_WINDRES_VERSION | $AWK -F\. '{ print $1 }'`
         _WINDRES_MINOR_VERSION=`echo $_WINDRES_VERSION | $AWK -F\. '{ print $2 }'`
