@@ -41,7 +41,6 @@ if test "$MOZ_BUILD_APP" = "i386" -o "$MOZ_BUILD_APP" = "x86_64"; then
   RANLIB="${TOOLCHAIN_PREFIX}ranlib"
   AR="${TOOLCHAIN_PREFIX}ar"
   AS=$CC
-  LD=ld
   STRIP="${TOOLCHAIN_PREFIX}strip"
   OTOOL="${TOOLCHAIN_PREFIX}otool"
 
