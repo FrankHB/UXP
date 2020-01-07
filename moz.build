@@ -22,6 +22,8 @@ DIRS += [
     'config',
     'python',
     'taskcluster',
+    'testing/mozbase',
+    'third_party/python',
 ]
 
 if not CONFIG['MOZ_DISABLE_PLATFORM']:
